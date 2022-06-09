@@ -11,7 +11,7 @@ public class PhoneNumberViewModel: BaseViewModel, PhoneNumberViewModelProtocol {
 
     private let useCaseExecutor: UseCaseExecutor
     private let sendOneTimePasswordUseCase: SendOneTimePasswordUseCase
-    private var phoneNumber: String
+    private var phoneNumber: String = ""
 
     public init(
         useCaseExecutor: UseCaseExecutor,
@@ -19,7 +19,6 @@ public class PhoneNumberViewModel: BaseViewModel, PhoneNumberViewModelProtocol {
     ) {
         self.useCaseExecutor = useCaseExecutor
         self.sendOneTimePasswordUseCase = sendOneTimePasswordUseCase
-        self.phoneNumber = ""
     }
 
     public func onSendOneTimePasswordAction(with phoneNumber: String) {

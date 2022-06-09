@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "CommonUI",
+    defaultLocalization: "en",
     platforms: [.iOS(.v15)],
     products: [
         .library(
@@ -19,7 +20,11 @@ let package = Package(
     targets: [
         .target(
             name: "CommonUI",
-            dependencies: ["CommonDomain", "CommonPresentation"]
+            dependencies: ["CommonDomain", "CommonPresentation"],
+            resources: [
+                .process("Resources/Localization"),
+                .process("Resources/Images")
+            ]
         ),
         .testTarget(
             name: "CommonUITests",

@@ -6,6 +6,7 @@ enum FontStyle {
     case heading3
     case title
     case subtitle
+    case subtitleBold
 
     var font: UIFont {
         UIFont(name: fontName, size: size) ?? .systemFont(ofSize: size, weight: .regular)
@@ -13,7 +14,7 @@ enum FontStyle {
 
     public var fontName: String {
         switch self {
-        case .heading1, .heading2, .heading3:
+        case .heading1, .heading2, .heading3, .subtitleBold:
             return "PingFangHK-Semibold"
         case .title:
             return "PingFangHK-Regular"
@@ -28,7 +29,7 @@ enum FontStyle {
         case .heading3: return 15
         case .title: return 17
         case .heading2: return 19
-        case .subtitle: return 13
+        case .subtitle, .subtitleBold: return 13
         }
     }
 }

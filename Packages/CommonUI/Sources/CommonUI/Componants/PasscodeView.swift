@@ -51,7 +51,7 @@ extension PasscodeView {
 
         for _ in 0 ..< length {
             let label = UILabel(frame: .zero)
-            label.font = FontStyle.title.font
+            label.font = FontStyle.heading2.font
             label.textColor = .black
             label.backgroundColor = .styleButtonDisable
             label.cornerRadius = 8
