@@ -22,8 +22,7 @@ let package = Package(
             name: "CommonUI",
             dependencies: ["CommonDomain", "CommonPresentation"],
             resources: [
-                .process("Resources/Localization"),
-                .process("Resources/Images")
+                .process("Resources")
             ]
         ),
         .testTarget(

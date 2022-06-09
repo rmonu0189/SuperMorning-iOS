@@ -51,7 +51,7 @@ extension VerifyOTPViewController {
             uiModel: .init(
                 title: InheritedResource.localizedString(
                     key: "verify_otp_title",
-                    defaultValue: "Verify Mobile Number Default"
+                    defaultValue: "Verify Mobile Number"
                 ),
                 imageName: "enterMobileTopIcon"
             ),
