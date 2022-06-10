@@ -7,4 +7,5 @@ public enum DomainException {
     case somethingWentWrong
     case genric(message: String)
     case cancelNetworkRequest
+    case noSession
 }

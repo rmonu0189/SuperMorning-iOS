@@ -30,7 +30,9 @@ class PhoneNumberCoordinator: BaseCoordinator {
     }
 
     private func startVerifyOTP(with phoneNumber: String, token: String) {
-        let coordinator = VerifyOTPCoordinator(router: router)
+        let coordinator = VerifyOTPCoordinator(
+            router: router, phoneNumber: phoneNumber, otpToken: token
+        )
         addChild(coordinator)
     }
 

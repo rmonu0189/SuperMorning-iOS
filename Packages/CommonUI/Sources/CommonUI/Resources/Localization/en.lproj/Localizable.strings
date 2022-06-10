@@ -1,2 +1,13 @@
+// MARK: Common
+"continue" = "CONTINUE";
+
+// MARK: Enter Phone screen
+"enter_phone_title" = "Signup/Login to join Us";
+"enter_phone_textfield_placeholder" = "Enter Your Phone number";
+"enter_phone_terms_condition_message" = "By clicking 'CONTINUE', you agree to our \n TERMS AND CONDITIONS ";
+"enter_phone_terms_condition" = "TERMS AND CONDITIONS";
+
 // MARK: Verify OTP Screen
 "verify_otp_title" = "Verify Mobile Number";
+"verify_otp_message_label" = "We have sent a 6 digit OTP to %@ ";
+"verify_otp_resend_code_in_time" = "Resend code in %@";

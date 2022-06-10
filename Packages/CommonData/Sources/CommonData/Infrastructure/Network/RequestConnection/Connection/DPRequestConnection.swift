@@ -19,9 +19,13 @@ public final class DPRequestConnection {
         _ service: DPRequestProtocol,
         url: String? = nil,
         requestBody: DPRequestBody? = nil,
+        headers: [String: String]?,
         completionHandler: @escaping (_ response: DPResponse) -> Void
     ) -> URLSessionDataTask {
-        let request = service.prepareRequest(requestBody: requestBody, serverPath: url ?? serverPath)
+        var request = service.prepareRequest(requestBody: requestBody, serverPath: url ?? serverPath)
+        for (key, value) in headers ?? [:] {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
         let task = urlSession.dataTask(with: request) { [weak self] data, response, error in
             guard let self = self else { return }
             self.logResponse(response, data: data, error: error, inputBody: request.httpBody)

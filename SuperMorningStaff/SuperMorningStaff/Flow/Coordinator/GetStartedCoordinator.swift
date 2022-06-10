@@ -11,7 +11,7 @@ class GetStartedCoordinator: BaseCoordinator {
     override func start() {
         var controller = viewControllerFactory.makeGetStartedViewController()
         controller.onGetStartedAction = { [weak self] in
-            self?.startVerifyOTP()
+            self?.startPhoneNumber()
         }
         controller.onDestroy = onDestroy
         router.changeRoot(with: controller)
@@ -19,11 +19,6 @@ class GetStartedCoordinator: BaseCoordinator {
 
     private func startPhoneNumber() {
         let coordinator = PhoneNumberCoordinator(router: router)
-        addChild(coordinator)
-    }
-
-    private func startVerifyOTP() {
-        let coordinator = VerifyOTPCoordinator(router: router)
         addChild(coordinator)
     }
 }

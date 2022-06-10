@@ -1,32 +1,53 @@
 import UIKit
+import CommonPresentation
 
 public class VerifyOTPViewController: BaseViewController, VerifyOTPActionable {
     private enum Constants {
-        static let passcodeLength: Int8 = 4
+        static let passcodeLength: Int8 = 6
         static let animationDuration: CGFloat = 0.3
+        static let horizontalInset: CGFloat = 16
+        static let passcodeTopInset: CGFloat = 20
+        static let headerImage: String = "enterMobileTopIcon"
     }
+
+    private let viewModel: VerifyOTPViewModelProtocol
+    private let phoneNumber: String
 
     private var headerView: HeaderView!
     private var continueButton: CTAButtonView!
     private var messageLabel: StyleLabel!
     private var passcodeView: PasscodeView!
+    private var resendOtpLabel: StyleLabel!
     private var continueButtonBottomConstraint: NSLayoutConstraint!
 
     public var onBackAction: (() -> Void)?
     public var onVerifySuccessAction: (() -> Void)?
 
-    public init() {
-        super.init()
+    public init(viewModel: VerifyOTPViewModelProtocol, phoneNumber: String) {
+        self.viewModel = viewModel
+        self.phoneNumber = phoneNumber
+        super.init(viewModel: viewModel)
         initializeUI()
         addConstraints()
         listenKeyboardNotification()
         bindKeyboardListeners()
         addKeypadDissmissTapGesture()
+        bind()
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func bind() {
+        viewModel.resendOTPTimerInSecond.bind { [weak self] seconds in
+            self?.refreshResendOTPLabel(for: seconds)
+        }
+        viewModel.loginSuccess.bind { [weak self] status in
+            guard status else { return }
+            self?.onVerifySuccessAction?()
+        }
     }
 
     private func bindKeyboardListeners() {
@@ -43,6 +64,44 @@ public class VerifyOTPViewController: BaseViewController, VerifyOTPActionable {
             self?.view.layoutIfNeeded()
         }
     }
+
+    private func refreshResendOTPLabel(for seconds: Int) {
+        if seconds == 0 {
+            resendOtpLabel.text = "Click here to resend code"
+            resendOtpLabel.addLinks(for: [
+                .init(
+                    text: "Click here to resend code",
+                    attribute: .init(
+                        font: FontStyle.heading3.font,
+                        color: .styleButtonBackground,
+                        isUnderline: true
+                    ),
+                    callback: { [weak self] in
+                        self?.viewModel.onResendOTPAction()
+                    }
+                )
+            ])
+        } else {
+            resendOtpLabel.attributedText = nil
+            let time = String(format: "00:%02d", seconds)
+            resendOtpLabel.text = String(
+                format: InheritedResource.localizedString(
+                    key: "verify_otp_resend_code_in_time",
+                    defaultValue: "Resend code in %@"
+                ), time
+            )
+            resendOtpLabel.addLinks(for: [
+                .init(
+                    text: time,
+                    attribute: .init(
+                        font: FontStyle.heading3.font,
+                        color: .styleButtonBackground
+                    ),
+                    callback: nil
+                )
+            ])
+        }
+    }
 }
 
 extension VerifyOTPViewController {
@@ -53,7 +112,7 @@ extension VerifyOTPViewController {
                     key: "verify_otp_title",
                     defaultValue: "Verify Mobile Number"
                 ),
-                imageName: "enterMobileTopIcon"
+                imageName: Constants.headerImage
             ),
             backButtonHandler: { [weak self] in
                 self?.onBackAction?()
@@ -62,10 +121,16 @@ extension VerifyOTPViewController {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerView)
 
-        let phoneWithCode = "+91-9109322140"
+        let phoneWithCode = "+91-\(phoneNumber)"
         messageLabel = .init(style: .subtitle, color: .styleTextGrey)
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageLabel.text = "We have sent a 4 digit OTP to \(phoneWithCode) "
+        messageLabel.text = String(
+            format: InheritedResource.localizedString(
+                key: "verify_otp_message_label",
+                defaultValue: "We have sent a 6 digit OTP to %@ "
+            ),
+            phoneWithCode
+        )
         messageLabel.addLinks(for: [
             .init(
                 text: phoneWithCode,
@@ -88,9 +153,21 @@ extension VerifyOTPViewController {
         }
         view.addSubview(passcodeView)
 
-        continueButton = .init(title: "CONTINUE", action: { [weak self] in
-            self?.onVerifySuccessAction?()
-        })
+        resendOtpLabel = .init(style: .heading3, color: .styleTextDark)
+        resendOtpLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(resendOtpLabel)
+
+        continueButton = .init(
+            title: InheritedResource.localizedString(
+                key: "continue",
+                defaultValue: "CONTINUE"
+            ),
+            action: { [weak self] in
+                guard let self = self else { return }
+                self.view.endEditing(true)
+                self.viewModel.onSubmitAction(with: self.passcodeView.passcode)
+            }
+        )
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(continueButton)
     }
@@ -104,13 +181,28 @@ extension VerifyOTPViewController {
 
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            messageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            messageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            messageLabel.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor, constant: Constants.horizontalInset
+            ),
+            messageLabel.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor, constant: -Constants.horizontalInset
+            )
         ])
 
         NSLayoutConstraint.activate([
-            passcodeView.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 20),
-            passcodeView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+            passcodeView.topAnchor.constraint(
+                equalTo: messageLabel.bottomAnchor, constant: Constants.passcodeTopInset
+            ),
+            passcodeView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor, constant: Constants.horizontalInset
+            )
+        ])
+
+        NSLayoutConstraint.activate([
+            resendOtpLabel.topAnchor.constraint(
+                equalTo: passcodeView.bottomAnchor, constant: Constants.passcodeTopInset
+            ),
+            resendOtpLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.horizontalInset)
         ])
 
         NSLayoutConstraint.activate([
