@@ -63,7 +63,7 @@ struct DPResponse {
     func toModel<T: Codable>(_: T.Type) -> T? {
         guard let key = service.responseKey() else { return nil }
         guard let jsonData = jsonResponse()[key] else { return nil }
-        return decodeFromJSON(T.self, data: jsonData, service: nil)
+        return decodeFromJSON(T.self, data: jsonData, service: service)
     }
 
     public func toStringResult() -> String {
@@ -73,7 +73,9 @@ struct DPResponse {
     public func jsonResponse() -> [String: Any] {
         guard let data = result else { return [:] }
         do {
-            let apiResponse = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: Any]
+            let apiResponse = try JSONSerialization.jsonObject(
+                with: data, options: JSONSerialization.ReadingOptions.allowFragments
+            ) as? [String: Any]
             return apiResponse ?? [:]
         } catch {
             DPLogger.log(error)

@@ -1,9 +1,17 @@
+import CommonPresentation
+
 public protocol VerifyOTPViewControllerFactoryProtocol {
-    func makeVerifyOTPViewController() -> CoordinatedViewController & VerifyOTPActionable
+    func makeVerifyOTPViewController(
+        viewModel: VerifyOTPViewModelProtocol,
+        phoneNumber: String
+    ) -> CoordinatedViewController & VerifyOTPActionable
 }
 
 final class VerifyOTPViewControllerFactory: VerifyOTPViewControllerFactoryProtocol {
-    public func makeVerifyOTPViewController() -> CoordinatedViewController & VerifyOTPActionable {
-        VerifyOTPViewController()
+    public func makeVerifyOTPViewController(
+        viewModel: VerifyOTPViewModelProtocol,
+        phoneNumber: String
+    ) -> CoordinatedViewController & VerifyOTPActionable {
+        VerifyOTPViewController(viewModel: viewModel, phoneNumber: phoneNumber)
     }
 }

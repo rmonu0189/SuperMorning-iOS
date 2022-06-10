@@ -20,7 +20,6 @@
 		32C906892838AB0400372390 /* CommonDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 32C906882838AB0400372390 /* CommonDomain */; };
 		32C9068B2838AB0400372390 /* CommonPresentation in Frameworks */ = {isa = PBXBuildFile; productRef = 32C9068A2838AB0400372390 /* CommonPresentation */; };
 		32C9068D2838AB0400372390 /* CommonUI in Frameworks */ = {isa = PBXBuildFile; productRef = 32C9068C2838AB0400372390 /* CommonUI */; };
-		32C906932838B3E700372390 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32C906922838B3E700372390 /* Images.xcassets */; };
 		32C906952838B3F200372390 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32C906942838B3F200372390 /* Colors.xcassets */; };
 		32C9069D2839063E00372390 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C9069C2839063E00372390 /* AppCoordinator.swift */; };
 		32C906A128390C3D00372390 /* PhoneNumberCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C906A028390C3D00372390 /* PhoneNumberCoordinator.swift */; };
@@ -34,13 +33,13 @@
 		320CD4322838A869008B96E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		320CD4352838A869008B96E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		320CD4372838A869008B96E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		324779CA2851E2DF002BCB9E /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		32A573A7283DD27700BBC7BD /* GetStartedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedCoordinator.swift; sourceTree = "<group>"; };
 		32A573A9283DD70700BBC7BD /* WebViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewCoordinator.swift; sourceTree = "<group>"; };
 		32C9067D2838AAF000372390 /* CommonPresentation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CommonPresentation; sourceTree = "<group>"; };
 		32C9067E2838AAF000372390 /* CommonData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CommonData; sourceTree = "<group>"; };
 		32C9067F2838AAF000372390 /* CommonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CommonUI; sourceTree = "<group>"; };
 		32C906802838AAF000372390 /* CommonDomain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CommonDomain; sourceTree = "<group>"; };
-		32C906922838B3E700372390 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		32C906942838B3F200372390 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		32C9069C2839063E00372390 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		32C906A028390C3D00372390 /* PhoneNumberCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberCoordinator.swift; sourceTree = "<group>"; };
@@ -140,7 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				320CD4322838A869008B96E2 /* Assets.xcassets */,
-				32C906922838B3E700372390 /* Images.xcassets */,
 				32C906942838B3F200372390 /* Colors.xcassets */,
 			);
 			path = Assets;
@@ -247,6 +245,7 @@
 			knownRegions = (
 				en,
 				Base,
+				hi,
 			);
 			mainGroup = 320CD41D2838A866008B96E2;
 			productRefGroup = 320CD4272838A866008B96E2 /* Products */;
@@ -265,7 +264,6 @@
 			files = (
 				32C906952838B3F200372390 /* Colors.xcassets in Resources */,
 				320CD4362838A869008B96E2 /* LaunchScreen.storyboard in Resources */,
-				32C906932838B3E700372390 /* Images.xcassets in Resources */,
 				320CD4332838A869008B96E2 /* Assets.xcassets in Resources */,
 				32C906832838AAF100372390 /* CommonUI in Resources */,
 				32C906842838AAF100372390 /* CommonDomain in Resources */,
@@ -298,6 +296,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				320CD4352838A869008B96E2 /* Base */,
+				324779CA2851E2DF002BCB9E /* hi */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -309,6 +308,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -370,6 +370,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

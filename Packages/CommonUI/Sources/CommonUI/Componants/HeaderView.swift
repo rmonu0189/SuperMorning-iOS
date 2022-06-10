@@ -52,12 +52,12 @@ extension HeaderView {
     private func initializeUI(uiModel: UiModel) {
         translatesAutoresizingMaskIntoConstraints = false
 
-        imageView = .init(image: UIImage(named: uiModel.imageName))
+        imageView = .init(image: InheritedResource.image(uiModel.imageName))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
 
         backButton = .init(backgroundColor: .clear)
-        backButton.setImage(UIImage(named: "backArrowBlack"), for: .normal)
+        backButton.setImage(InheritedResource.image("backArrowBlack"), for: .normal)
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         addSubview(backButton)

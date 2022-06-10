@@ -4,12 +4,21 @@ import Foundation
 extension URLSessionTask: Cancellable {}
 
 public class NetworkClient {
+    private let appSession: AppSession
     private let connection: DPRequestConnection
     private let url: String
 
-    public init(url: String) {
+    public init(url: String, appSession: AppSession) {
+        self.appSession = appSession
         self.url = url
         connection = .init(serverPath: nil)
+    }
+
+    private func getAuthorizationHeader() -> [String: String]? {
+        if let token = appSession.sessionToken {
+            return ["Authorization": "Bearer \(token)"]
+        }
+        return nil
     }
 
     func performService<T: Codable>(
@@ -21,7 +30,8 @@ public class NetworkClient {
         connection.performService(
             service,
             url: url,
-            requestBody: requestBody
+            requestBody: requestBody,
+            headers: getAuthorizationHeader()
         ) { response in
             if response.httpStatusCode.rawValue >= 500 {
                 failed?(.serverError(message: response.httpStatusCode.statusDescription))

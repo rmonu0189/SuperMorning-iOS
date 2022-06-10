@@ -51,15 +51,17 @@ extension PasscodeView {
 
         for _ in 0 ..< length {
             let label = UILabel(frame: .zero)
-            label.font = FontStyle.title.font
+            label.font = FontStyle.heading2.font
             label.textColor = .black
             label.backgroundColor = .styleButtonDisable
             label.cornerRadius = 8
+            label.layer.borderWidth = 1
+            label.layer.borderColor = UIColor.gray.cgColor
             label.clipsToBounds = true
             label.textAlignment = .center
             label.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                label.widthAnchor.constraint(equalToConstant: 40),
+                label.widthAnchor.constraint(equalToConstant: 35),
                 label.heightAnchor.constraint(equalToConstant: 40),
             ])
             labels.append(label)

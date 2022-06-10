@@ -129,7 +129,7 @@ extension ToasMessageView {
                 iconColor: .white,
                 backgroundColor: .green
             ))
-        case .cancelNetworkRequest:
+        case .cancelNetworkRequest, .noSession:
             break
         }
 

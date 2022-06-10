@@ -63,7 +63,9 @@ open class BaseViewController: CoordinatedViewController {
 
     private func bind() {
         baseViewModel?.showException = { exception in
-            ToasMessageView.show(exception: exception)
+            DispatchQueue.main.async {
+                ToasMessageView.show(exception: exception)
+            }
         }
 
         baseViewModel?.showLoader = { isShow in

@@ -4,4 +4,10 @@ public protocol AuthenticationRepositoryProtocol {
         success: @escaping (SendOneTimePasswordResponseDomainModel) -> Void,
         failed: @escaping (DomainException) -> Void
     ) -> Cancellable
+
+    func loginByOneTimePassword(
+        with request: LoginByOTPRequestDomainModel,
+        success: @escaping (LoginResponseDomainModel) -> Void,
+        failed: @escaping (DomainException) -> Void
+    ) -> Cancellable
 }
